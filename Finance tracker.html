@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            margin-top: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        label {
+            flex: 1 1 100%;
+        }
+        input, button {
+            flex: 1 1 calc(50% - 10px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+        }
+        .total {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Finance Tracker</h1>
+        <p>Track your expenses and manage your spending effectively.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Add Expense</h2>
+            <form id="expense-form">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="e.g., Grocery" required>
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" placeholder="e.g., 50" required>
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Spending History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-table-body">
+                    <!-- Expenses will be dynamically added here -->
+                </tbody>
+            </table>
+            <p class="total">Total: $<span id="total-amount">0.00</span></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 JaySignature Technology</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('expense-form');
+        const tableBody = document.getElementById('expense-table-body');
+        const totalAmountElement = document.getElementById('total-amount');
+        let totalAmount = 0;
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${description}</td>
+                <td>N${amount.toFixed(2)}</td>
+            `;
+            tableBody.appendChild(row);
+
+            totalAmount += amount;
+            totalAmountElement.textContent = totalAmount.toFixed(2);
+
+            form.reset();
+        });
+    </script>
+</body>
+</html>
